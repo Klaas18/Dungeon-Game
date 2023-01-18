@@ -1,19 +1,20 @@
 ﻿using System;
-
+using RPG_Game;
 
 namespace RPG_Game
 {
-    class Program
+    class Program : Utilities
     {
-        public Utilities utilities = Utilities.Instance;
+        //public Utilities utilities = Utilities.Instance;
         static void Main(string[] args)
         {
-            Player player = new Player();
-           
-           if(player.playerInfo.name != null)
-            { 
           
-            }
+            Player player = new Player();
+            Race race = new Race();
+            // DungeonRoom dungeonRoom = new DungeonRoom();
+            new DungeonRoom();
+
+          
             char input = char.Parse(Console.ReadLine().ToLower());
             if (input == 's')
             {
@@ -25,13 +26,13 @@ namespace RPG_Game
             }
            // player.WriteData();
             
-            Console.WriteLine(player.playerInfo.level +" "+ player.playerInfo.name);
+           // Console.WriteLine(player.playerInfo.level +" "+ player.playerInfo.name);
         }
         
         public void StartMessage()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            utilities.TypeWriter("Welcome Back", ConsoleColor.DarkBlue);
+            TypeWriter("Welcome Back", ConsoleColor.DarkBlue);
         }
     }
 }

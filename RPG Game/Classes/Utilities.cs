@@ -6,12 +6,12 @@ namespace RPG_Game
 {
     public class Utilities
     {
-        private static Utilities _instance = new Utilities();
+        //private static Utilities _instance = new Utilities();
 
-        private Utilities() { }
-        public static Utilities Instance{  get { return _instance; }}
+       
+      //  public static Utilities Instance{  get { return _instance; }}
 
-        public void TypeWriter(string text, ConsoleColor color)
+        public static void TypeWriter(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             for (int i = 0; i < text.Length; i++)
@@ -22,11 +22,16 @@ namespace RPG_Game
             Console.ResetColor();
             Console.Write("\n");
         }
-
-        public void ChangeColor(ConsoleColor color)
+        public static void TypeWriter(string text, ConsoleColor color, int j)
         {
             Console.ForegroundColor = color;
+            for (int i = 0; i < text.Length; i++)
+            {
+                Console.Write(text[i]);
+                System.Threading.Thread.Sleep(j);
+            }
+            Console.ResetColor();
+            Console.Write("\n");
         }
-
-}
+    }
 }

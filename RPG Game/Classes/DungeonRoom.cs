@@ -19,9 +19,9 @@ namespace RPG_Game
         public DungeonRoom()
         {
             Random r = new Random();
-            bool hasTreasure = false;
-            int generateChance = r.Next(1, 101);
-            
+          //  bool hasTreasure = false;
+            int generateChance = r.Next(1, 100);
+           Enemy tempEnemy = new Enemy(Player.playerInfo.level);
             GenarateRoom();
 
             void GenarateRoom()
@@ -30,13 +30,14 @@ namespace RPG_Game
                 {
                     case int i when i <= 90:    // MonsterRoom
                        TypeWriter("Monster Room", ConsoleColor.Gray);
+
                         MonsterRoom();
                         return;
-
                     case int i when i <= 100:   // Treasure Room
-                      TypeWriter("Treasure Room", ConsoleColor.Gray);
+                        TypeWriter("Treasure Room", ConsoleColor.Gray);
                         TreasureRoom();
                         return;
+                   
 
                     default:
                         TypeWriter("Something Went Wrong With Genarating The Room", ConsoleColor.Red);
@@ -46,11 +47,49 @@ namespace RPG_Game
 
             void MonsterRoom()
             {
-                Enemy tempEnemy = new Enemy(Player.playerInfo.level);
+               
                 //isBattling = true;
               /// while (isBattling)
                // {
-                    BattleManager battleManager = new BattleManager(tempEnemy, player);
+               if (Player.playerInfo.klassen1 == klassen.Thief)
+                {
+                    Console.WriteLine($"You Encounterd A {tempEnemy.raceE} {tempEnemy.klassenE} Would You Like To Try And Sneak Passed It -[Y]es or [N]o ");
+                    switch (Console.ReadKey().Key)
+                    {
+                        case ConsoleKey.Y:
+                            Random random = new Random();
+                            if(random.Next(1, 100 - Player.playerInfo.stealth) <= 10)
+                            {
+                                Console.WriteLine($"You Got Passed The {tempEnemy.raceE} {tempEnemy.klassenE} ");
+                                System.Threading.Thread.Sleep(1250);
+                            }
+                            else 
+                            {
+                                Console.WriteLine($"The {tempEnemy.raceE} {tempEnemy.klassenE} Noticed You");
+                                System.Threading.Thread.Sleep(1250);
+                                new BattleManager(tempEnemy, player); 
+                            }
+                            return;
+                        case ConsoleKey.N:
+                            Console.WriteLine($"The {tempEnemy.raceE} {tempEnemy.klassenE} Noticed You");
+                            System.Threading.Thread.Sleep(1250);
+                            new BattleManager(tempEnemy, player);
+                            return;
+                        default:
+                            Console.WriteLine("Invalid Input");
+                            System.Threading.Thread.Sleep(1250);
+                            MonsterRoom();
+                            return;
+                    }
+                     
+                }
+                else 
+                {
+                    Console.WriteLine($"You Encounterd A { tempEnemy.raceE} { tempEnemy.klassenE}");
+                    System.Threading.Thread.Sleep(1250);
+                    new BattleManager(tempEnemy, player);
+                 }
+
                
               //      isBattling = false;
                 //}
@@ -59,7 +98,7 @@ namespace RPG_Game
 
             void TreasureRoom()
             {
-                
+                TreasureRoom treasureRoom = new TreasureRoom(player);
             }
         }
         public static void Draw()

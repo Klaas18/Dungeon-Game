@@ -13,9 +13,8 @@ namespace RPG_Game
     {
         private static Player instance = null;
         // public Utilities utilities = Utilities.Instance;
+        public static PlayerStats playerInfo = new PlayerStats();
 
-        private Dictionary<string, int> playerStats = new Dictionary<string, int>();
-        // private string filePath = @"C:\..\klaas\Desktop\School\C#\RPG Game\RPG Game\RPG Game\jsonFiles\PlayerSaveData.json";
         private string filePath = @"..\..\..\jsonFiles\PlayerSaveData.json";
         public static Player getInstance()
         {
@@ -29,28 +28,28 @@ namespace RPG_Game
         }
         public Player()
         {
-           // LoadGame();
-            
             if (File.Exists(filePath))
             {
                 LoadGame();
             } else
             {
-                Welcome();
                 Race race = new Race();
-                TypeWriter("", ConsoleColor.Red);
-
                 TypeWriter("What Is Your Name Warrior?", ConsoleColor.DarkYellow);
                 string playerName = Console.ReadLine();
                 playerInfo.name = playerName;
                 SaveGame();
-               //playerInfo.gameFileExists = true;
-                //playerInfo.name = Console.ReadLine();
+                Welcome();         
             }
         }
 
-        public static PlayerStats playerInfo = new PlayerStats();
-
+        public void OnPlayerDeath()
+        {
+            Console.Clear();
+            Frame($"It Seems You have Died Warrior Your Body Will Be Buried By The Dungeon Dwellers");
+            System.Threading.Thread.Sleep(1500);
+            File.Delete(filePath);
+            Program.isPlayingGame = false;
+        }
         public int AttackDamage()
         {
            float damage = playerInfo.playerWeapon.damage * playerInfo.strenght / 1.5f;
@@ -60,19 +59,24 @@ namespace RPG_Game
 
         public int MageAttack()
         {
-            float mageDamage = 4 * playerInfo.mageDamge / 1.5f;
+            float mageDamage = playerInfo.playerWeapon.damage * playerInfo.mageDamge / 3;
             return (Int32)mageDamage;
         }
    
         public void TakeDamge(int damgeTaken)
         {
            // damgeTaken 
-           playerInfo.health -= damgeTaken / playerInfo.defense; 
+           playerInfo.health -= damgeTaken; 
         }
         public void ShowStats()
         {
             Frame($"Health: {playerInfo.health} Level :{playerInfo.level} Money: {playerInfo.money} Strenght: {playerInfo.strenght} Defence: {playerInfo.defense} Potion Amount: {playerInfo.potionInventory.Count} Your Weapon: {playerInfo.playerWeapon.name}");
 
+        }
+        public void GiveMoney(int monsterMoney)
+        {
+            playerInfo.money += monsterMoney;
+            Console.WriteLine($"You Found ${monsterMoney}");
         }
         public void Heal()
         {
@@ -134,7 +138,10 @@ namespace RPG_Game
         }
         public void Welcome()
         {
-            TypeWriter("You Woke Up In A Underground Pet Sematary.\n You don't know how you got here or what happend to you", ConsoleColor.Cyan);
+            TypeWriter("You Woke Up In A Underground Pet Sematary.\nYou don't know how you got here or what happend to you", ConsoleColor.Cyan);
+            TypeWriter("You See A Dungeon Entrence Infront Of You And You Decide To Enter It.", ConsoleColor.Cyan);
+            TypeWriter("On Enter The Dungeon The Door Closed Behind You It Seems You're Stuck In Here.", ConsoleColor.Cyan);
+            System.Threading.Thread.Sleep(1250);
           //  Race.SetStats();
         }
 

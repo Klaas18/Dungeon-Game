@@ -17,15 +17,15 @@ namespace RPG_Game
         public int moneyDrop;
         protected int strength;
         protected int defence;
-
+        public bool hasBeenStolenFrom = false;
 
         private float minValue = 1;
         private float maxValue = 2;
         public Enemy(int playerLevel)
         {
             SetEnemyStats(playerLevel);
-            StringFramed($" You Encounterd a {raceE} {klassenE} ");
-            Console.WriteLine($"Health: {health} \nLevel: {level} \nStrength: {strength} \nDefence: {defence} \nXpOnDeath: {xpOnDeath}");
+           // StringFramed($" You Encounterd a {raceE} {klassenE} ");
+            //Console.WriteLine($"Health: {health} \nLevel: {level} \nStrength: {strength} \nDefence: {defence} \nXpOnDeath: {xpOnDeath}");
             
         }
 
@@ -33,13 +33,14 @@ namespace RPG_Game
      
         public int Attack(int playerDefence)
         {
-            int attackDamge = playerDefence / strength;
+            Random random = new Random();
+            int attackDamge =  random.Next(1,6) +playerDefence - strength;
             return attackDamge;
         }
 
         public void TakeDamage(int damageTaken)
         {
-            health -= damageTaken;
+            health -= damageTaken - defence /3 ;
         }
 
         public void SetEnemyStats(int playerLevel)
@@ -47,15 +48,16 @@ namespace RPG_Game
             Random random = new Random();
             maxValue = playerLevel * 5f;
             minValue = playerLevel * 2f;
-            Console.WriteLine($"minValue: {minValue}\n maxValue: {maxValue}");
+           // Console.WriteLine($"minValue: {minValue}\n maxValue: {maxValue}");
             klassenE = SetClass();
             raceE = SetRace();
 
             level = random.Next(Convert.ToInt32(playerLevel), playerLevel + 4);
             xpOnDeath = random.Next((Int32)minValue, (Int32)maxValue + 20);
             moneyDrop = random.Next((Int32)minValue, (Int32)maxValue + 15);
-            health = random.Next((Int32)minValue, (Int32)maxValue);
+            health = random.Next((Int32)minValue, (Int32)maxValue) + 20;
             strength = random.Next((Int32)minValue, (Int32)maxValue);
+            defence = random.Next((Int32)minValue, (Int32)maxValue) -2;
 
         }
 

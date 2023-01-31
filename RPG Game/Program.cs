@@ -22,7 +22,7 @@ namespace RPG_Game
         {
             Console.Clear();
             Player.getInstance().ShowStats();
-            Console.WriteLine("[E]nter a Dongeon Room - [Q]uit Game - [S]hop - Save [G]ame"); //- [I]nventory
+            Console.WriteLine("[E]nter a Dongeon Room - [Q]uit Game - [S]hop - Save [G]ame - [D]elete Save File"); //- [I]nventory
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.E:
@@ -33,17 +33,15 @@ namespace RPG_Game
                     Console.WriteLine($"GoodBye {Player.playerInfo.name}");
                     isPlayingGame = false;
                     break;
-                //case ConsoleKey.I:
-                //    // Open Inventory
-                //    break;
-
                 case ConsoleKey.S:
                     isInShop = true;
                     while (isInShop)
                     {
                         Player.getInstance().Shop();
                     }
-                    // Open A Shop for Potions
+                    break;
+                case ConsoleKey.D:
+                    Player.getInstance().OnPlayerDeath();
                     break;
 
                 case ConsoleKey.G:

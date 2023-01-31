@@ -14,98 +14,113 @@ namespace RPG_Game
             while(isBattling)
             {
                 Battle(enemy, player);
-                //if (enemy.health <= 0)
-                //{
-                //    isBattling = false;
-                //}
-
-                //char input = char.Parse(Console.ReadLine().ToLower());
-                //switch (input)
-                //{
-                //    case 'a':   // Player Attack
-                //        Console.WriteLine($"enemy Health {enemy.health}");
-                //       enemy.TakeDamage(player.AttackDamage());
-                //        Console.WriteLine($"enemy Health {enemy.health}");
-                //        break;
-                //    default: Console.WriteLine("Invalid Input");
-                //        return;
-                //}
-
             }
         }
         public void Battle(Enemy enemy, Player player)
         {
             Console.Clear();
-           // Console.ForegroundColor = ConsoleColor.Yellow;
+        
             Frame($"Your Health: {Player.playerInfo.health}");
-          //  Console.ResetColor();
 
-           // Console.ForegroundColor = ConsoleColor.Yellow;
             Frame($"{enemy.raceE} Health: {enemy.health}");
-           // Console.ResetColor();
 
+            if (Player.playerInfo.health <= 0)
+            {
+                isBattling = false;
+                player.OnPlayerDeath();
+                return;
+            }
+            else
+            { 
+                Console.WriteLine("[A]ttack || [H]eal || [R]ob Enemy [S]kip Turn");
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.A:   // Player Attack
+
+                        if (Player.playerInfo.klassen1 == klassen.Mage)
+                        {
+                            //   Console.WriteLine($"enemy Health {enemy.health}");
+                            enemy.TakeDamage(player.AttackDamage());
+                            // Console.WriteLine($"enemy Health {enemy.health}");
+                        }
+                        else
+                        {
+                            // Console.WriteLine($"enemy Health {enemy.health}");
+                            enemy.TakeDamage(player.MageAttack());
+                            // Console.WriteLine($"enemy Health {enemy.health}");
+                        }
+                        break;
+
+                    case ConsoleKey.H:
+                        player.Heal();
+                        break;
+
+                    case ConsoleKey.R:
+                        Random random2 = new Random();
+                        if (Player.playerInfo.stealth <= random2.Next(1, Player.playerInfo.stealth + 50) && !enemy.hasBeenStolenFrom)
+                        {
+                            int stolenMoney = enemy.moneyDrop / 2;
+                            Player.playerInfo.money += stolenMoney;
+                            Console.WriteLine($"You Stole ${stolenMoney}");
+                            enemy.hasBeenStolenFrom = true;
+                            System.Threading.Thread.Sleep(1500);
+                        }
+                        else { Console.WriteLine("Pickpocked Failed"); System.Threading.Thread.Sleep(1500); }
+
+                        break;
+                    case ConsoleKey.S:
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input");
+                        Battle(enemy, player);
+                        return;
+                }
+            }
             if (enemy.health <= 0)
             {
                 isBattling = false;
                 player.GiveXP(enemy.xpOnDeath);
+                player.GiveMoney(enemy.moneyDrop);
                 Console.WriteLine("You Won Monster Has Been Defeated");          
                 System.Threading.Thread.Sleep(2000);
-            }
-
-            Console.WriteLine("[A]ttack || [H]eal || [S]kip Turn");
-            switch (Console.ReadKey().Key)
+            } else
             {
-                case ConsoleKey.A:   // Player Attack
+                Random random = new Random();
+                switch (random.Next(1, 2))
+                {
+                    case 1:
 
-                    if (Player.playerInfo.klassen1 == klassen.Mage)
-                    {
-                     //   Console.WriteLine($"enemy Health {enemy.health}");
-                        enemy.TakeDamage(player.AttackDamage());
-                       // Console.WriteLine($"enemy Health {enemy.health}");
-                    }
-                    else
-                    {
-                       // Console.WriteLine($"enemy Health {enemy.health}");
-                        enemy.TakeDamage(player.MageAttack());
-                       // Console.WriteLine($"enemy Health {enemy.health}");
-                    }
-                    break;
+                        player.TakeDamge(enemy.Attack(Player.playerInfo.defense));
+                        Console.WriteLine($"The {enemy.raceE} Attacked You ");
+                        System.Threading.Thread.Sleep(1250);
+                        return;
+                    default:
+                        Console.WriteLine($"The {enemy.raceE} Did Nothing");
+                        return;
+                }
+          
 
-                case ConsoleKey.H:
-                    player.Heal();
-                    break;
-                case ConsoleKey.S:
-                    break;
-                default:
-                    Console.WriteLine("Invalid Input");
-                    Battle(enemy, player);
-                    return;
             }
+       
 
-            if (enemy.health <= 0)
-            {
-                isBattling = false;
-                player.GiveXP(enemy.xpOnDeath);
-                Console.WriteLine("You Won Monster Has Been Defeated");
-                System.Threading.Thread.Sleep(2000);
-            }
 
-            Random random = new Random();
-            switch (random.Next(1,3))
-            {
-                case 1:
-                         
-                    player.TakeDamge(enemy.Attack(Player.playerInfo.defense));
-                    Console.WriteLine($"The {enemy.raceE} Attacked You ");
-                    return;
 
-                case 2:
-                       
-                    return;
-                default:
-                    Console.WriteLine($"The {enemy.raceE} Did Nothing");
-                    return;
-            }
+            //if (enemy.health <= 0)
+            //{
+            //    isBattling = false;
+            //    player.GiveXP(enemy.xpOnDeath);
+            //    player.GiveMoney(enemy.moneyDrop);
+            //    Console.WriteLine("You Won Monster Has Been Defeated");
+            //    System.Threading.Thread.Sleep(2000);
+            //}
+            //else if (Player.playerInfo.health <= 0)
+            //{
+            //    isBattling = false;
+            //    player.OnPlayerDeath();
+            //}
+            //else
+            
+            
             //if (enemy.health <= 0)
             //{
             //    isBattling = false;

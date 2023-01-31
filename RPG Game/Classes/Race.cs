@@ -15,6 +15,7 @@ namespace RPG_Game
     public class Race : Utilities
     {
         public static Dictionary<race, string> raceInfo = new Dictionary<race, string>();
+        public static Dictionary<klassen, string> klassenInfo = new Dictionary<klassen, string>();
         public static klassen klassenEnum;
         public static race raceEnum;
         public static Weapon weapon = new Weapon();
@@ -35,6 +36,9 @@ namespace RPG_Game
                 " They may have special abilities like resistance or immunity to certain types of damage and status effects, and may also be able to drain life from their enemies.");
             raceInfo.Add(race.Monster, "Unlisted");
 
+            klassenInfo.Add(klassen.Mage, "A Mage Will Use There Magical To Attack Monsters");
+            klassenInfo.Add(klassen.Thief, "A Thief Has The Ability To Try And Sneak Past Enemy's And Has A Higher Chance To Lockpick A Chest");
+            klassenInfo.Add(klassen.Warrior, "Warriors Have A Higher Bas Defence And Attack Then The Other Classes But Can't Do Any Of The Things Other Classes Can Do");
 
             SetRace_Class();
 
@@ -184,6 +188,11 @@ namespace RPG_Game
             }
             Console.Clear();
 
+            
+            foreach(KeyValuePair<klassen,string> r in klassenInfo)
+            {
+                Console.WriteLine($"{r.Key}: \n {r.Value}\n");
+            }
             TypeWriter("Please Select Your Class \nMage(1) | Thief(2) | Warrior(3)", ConsoleColor.Cyan);
             switch (Console.ReadKey().Key)
             {

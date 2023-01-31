@@ -1,1 +1,1 @@
-{"name":"klaas","level":0,"health":0,"speed":0,"strenght":0,"luck":0,"defense":0,"lockPicking":0,"stealth":0,"mana":0}
+{"name":"Klaas","level":3,"money":0,"currentXP":15,"xpNeeded":100,"health":8,"speed":17,"strenght":12,"luck":19,"defense":13,"lockPicking":10,"stealth":17,"mageDamge":21,"canUseMagic":true,"potionInventory":[{},{},{},{}],"race1":2,"klassen1":1,"playerWeapon":{"name":"Rapier","damage":9}}

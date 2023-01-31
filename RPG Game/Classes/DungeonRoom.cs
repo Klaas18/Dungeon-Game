@@ -8,13 +8,13 @@ namespace RPG_Game
 {
 
     public class DungeonRoom : Utilities
-    {
-      
+    { 
+        //private static bool isBattling = false;
 
         public const int SizeX = 32;
         public const int SizeY = 32;
 
-        
+        Player player = Player.getInstance();
       
         public DungeonRoom()
         {
@@ -46,7 +46,15 @@ namespace RPG_Game
 
             void MonsterRoom()
             {
-                
+                Enemy tempEnemy = new Enemy(Player.playerInfo.level);
+                //isBattling = true;
+              /// while (isBattling)
+               // {
+                    BattleManager battleManager = new BattleManager(tempEnemy, player);
+               
+              //      isBattling = false;
+                //}
+                    
             }
 
             void TreasureRoom()

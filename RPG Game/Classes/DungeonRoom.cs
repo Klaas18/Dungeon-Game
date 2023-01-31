@@ -47,13 +47,13 @@ namespace RPG_Game
 
             void MonsterRoom()
             {
-               
+                Console.Clear();
                 //isBattling = true;
               /// while (isBattling)
                // {
                if (Player.playerInfo.klassen1 == klassen.Thief)
                 {
-                    Console.WriteLine($"You Encounterd A {tempEnemy.raceE} {tempEnemy.klassenE} Would You Like To Try And Sneak Passed It -[Y]es or [N]o ");
+                   Frame($"You Encounterd A {tempEnemy.raceE} {tempEnemy.klassenE} Would You Like To Try And Sneak Passed It -[Y]es or [N]o ");
                     switch (Console.ReadKey().Key)
                     {
                         case ConsoleKey.Y:
@@ -85,7 +85,7 @@ namespace RPG_Game
                 }
                 else 
                 {
-                    Console.WriteLine($"You Encounterd A { tempEnemy.raceE} { tempEnemy.klassenE}");
+                   Frame($"You Encounterd A { tempEnemy.raceE} { tempEnemy.klassenE}");
                     System.Threading.Thread.Sleep(1250);
                     new BattleManager(tempEnemy, player);
                  }

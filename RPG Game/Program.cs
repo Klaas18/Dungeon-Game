@@ -21,6 +21,7 @@ namespace RPG_Game
         public static void Menu()
         {
             Console.Clear();
+            StartMessage();
             Player.getInstance().ShowStats();
             Console.WriteLine("[E]nter a Dongeon Room - [Q]uit Game - [S]hop - Save [G]ame - [D]elete Save File"); //- [I]nventory
             switch (Console.ReadKey().Key)
@@ -53,10 +54,11 @@ namespace RPG_Game
             }
         }
 
-        public void StartMessage()
+        public static void StartMessage()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            TypeWriter("Welcome Back", ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Red;
+            TypeWriter("Welcome Back To Sematary Dungeon", ConsoleColor.DarkBlue);
+            Console.WriteLine("\n");
         }
     }
 }

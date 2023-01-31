@@ -33,6 +33,8 @@ namespace RPG_Game
                 LoadGame();
             } else
             {
+                TypeWriter("Welcome To Sematary Dungeon", ConsoleColor.Green);
+                System.Threading.Thread.Sleep(1250);
                 Race race = new Race();
                 TypeWriter("What Is Your Name Warrior?", ConsoleColor.DarkYellow);
                 string playerName = Console.ReadLine();

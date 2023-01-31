@@ -12,7 +12,6 @@ namespace RPG_Game
     public class Player : Utilities
     {
         private static Player instance = null;
-        // public Utilities utilities = Utilities.Instance;
         public static PlayerStats playerInfo = new PlayerStats();
 
         private string filePath = @"..\..\..\jsonFiles\PlayerSaveData.json";
@@ -144,12 +143,11 @@ namespace RPG_Game
             TypeWriter("You See A Dungeon Entrence Infront Of You And You Decide To Enter It.", ConsoleColor.Cyan);
             TypeWriter("On Enter The Dungeon The Door Closed Behind You It Seems You're Stuck In Here.", ConsoleColor.Cyan);
             System.Threading.Thread.Sleep(1250);
-          //  Race.SetStats();
         }
 
         public void SaveGame()
         {
-            Console.WriteLine(filePath);
+        
             if (File.Exists(filePath))
             {
                 string jsonText = JsonConvert.SerializeObject(playerInfo); //Writes the class in json format to a string
@@ -160,6 +158,7 @@ namespace RPG_Game
                 Console.WriteLine("Creating Save File...");
                 using (StreamWriter writer = new StreamWriter(File.Create(filePath)))
                 {
+                   
                     //File.Create(filePath);
                     //System.Threading.Thread.Sleep(50);
                     writer.Close();
@@ -167,7 +166,6 @@ namespace RPG_Game
                     string jsonText = JsonConvert.SerializeObject(playerInfo); //Writes the class in json format to a string
                     File.WriteAllText(filePath, jsonText); // Opens the json file and writes the string with the class data to it
             }
-         //   SaveGame();
         }
 
         public void LoadGame()
@@ -197,8 +195,7 @@ namespace RPG_Game
     }
 
     public class PlayerStats
-    {
-
+    { 
         public string name { get; set; }
         public int level { get; set; }
         public int money { get; set; }

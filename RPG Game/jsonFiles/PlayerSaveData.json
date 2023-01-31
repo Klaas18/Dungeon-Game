@@ -1,1 +1,1 @@
-{"name":"Klaas","level":1,"money":0,"currentXP":0,"xpNeeded":25,"health":10,"speed":10,"strenght":8,"luck":10,"defense":6,"lockPicking":14,"stealth":12,"mageDamge":4,"canUseMagic":false,"potionInventory":[{},{},{},{}],"race1":0,"klassen1":2,"playerWeapon":{"name":"Bronze Axe","damage":3}}
+{"name":"klaas","level":1,"money":0,"currentXP":0,"xpNeeded":25,"health":12,"speed":7,"strenght":11,"luck":8,"defense":9,"lockPicking":5,"stealth":5,"mageDamge":2,"canUseMagic":false,"potionInventory":[{},{},{},{}],"race1":0,"klassen1":0,"playerWeapon":{"name":"Bronze Axe","damage":7}}

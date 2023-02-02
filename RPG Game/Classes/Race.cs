@@ -36,7 +36,7 @@ namespace RPG_Game
                 " They may have special abilities like resistance or immunity to certain types of damage and status effects, and may also be able to drain life from their enemies.");
             raceInfo.Add(race.Monster, "Unlisted");
 
-            klassenInfo.Add(klassen.Mage, "A Mage Will Use There Magical To Attack Monsters");
+            klassenInfo.Add(klassen.Mage, "A Mage Will Use There Magical To Attack Monsters and Health Potions give you more health");
             klassenInfo.Add(klassen.Thief, "A Thief Has The Ability To Try And Sneak Past Enemy's And Has A Higher Chance To Lockpick A Chest");
             klassenInfo.Add(klassen.Warrior, "Warriors Have A Higher Bas Defence And Attack Then The Other Classes But Can't Do Any Of The Things Other Classes Can Do");
 

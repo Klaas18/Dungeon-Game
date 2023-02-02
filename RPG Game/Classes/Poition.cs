@@ -13,7 +13,7 @@ namespace RPG_Game
         public static void Heal(int i)
         {
             Console.WriteLine($"You Have Been Healed");
-            Player.playerInfo.health += 25;
+            Player.playerInfo.health += i;
             Console.WriteLine($"{Player.playerInfo.health}");
         }
     }

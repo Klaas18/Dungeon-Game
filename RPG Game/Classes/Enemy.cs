@@ -24,9 +24,6 @@ namespace RPG_Game
         public Enemy(int playerLevel)
         {
             SetEnemyStats(playerLevel);
-           // StringFramed($" You Encounterd a {raceE} {klassenE} ");
-            //Console.WriteLine($"Health: {health} \nLevel: {level} \nStrength: {strength} \nDefence: {defence} \nXpOnDeath: {xpOnDeath}");
-            
         }
 
 
@@ -48,7 +45,7 @@ namespace RPG_Game
             Random random = new Random();
             maxValue = playerLevel * 5f;
             minValue = playerLevel * 2f;
-           // Console.WriteLine($"minValue: {minValue}\n maxValue: {maxValue}");
+
             klassenE = SetClass();
             raceE = SetRace();
 

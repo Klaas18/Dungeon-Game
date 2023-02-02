@@ -32,7 +32,9 @@ namespace RPG_Game
                 LoadGame();
             } else
             {
+                Console.BackgroundColor = ConsoleColor.Red;
                 TypeWriter("Welcome To Sematary Dungeon", ConsoleColor.Green);
+                Console.ResetColor();
                 System.Threading.Thread.Sleep(1250);
                 Race race = new Race();
                 TypeWriter("What Is Your Name Warrior?", ConsoleColor.DarkYellow);
@@ -85,9 +87,16 @@ namespace RPG_Game
             try
             {
                 if (playerInfo.potionInventory != null)
-                {
+                {                   
                     playerInfo.potionInventory.RemoveAt(playerInfo.potionInventory.Count - 1);
-                    new Poition(15);
+                    if (playerInfo.klassen1 == klassen.Mage)
+                    {
+                        new Poition(25);
+                    }
+                    else
+                    {
+                        new Poition(15);
+                    }
                 }
                 else { Console.WriteLine("No Potions Left"); }
             }

@@ -83,7 +83,7 @@ namespace RPG_Game
 
             void TreasureRoom()
             {
-                TreasureRoom treasureRoom = new TreasureRoom(player);
+               new TreasureRoom(player);
             }
         }
       

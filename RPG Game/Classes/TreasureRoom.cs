@@ -44,18 +44,32 @@ namespace RPG_Game
             Random random = new Random();
             Console.WriteLine("You're Lock Picking The Chest...");
             System.Threading.Thread.Sleep(1250);
-            switch (random.Next(1,125 - Player.playerInfo.lockPicking))
+
+            if (random.Next(1, 2) == 1)
             {
-                case int i when i <= 30:
-                    int MoneyFound = random.Next(30, 200 + Player.playerInfo.luck);
-                     Player.playerInfo.money += MoneyFound;
-                     Console.WriteLine($"You Opened The Chest And Found ${MoneyFound}");
-                    break;
-                   
-                default:
-                    Console.WriteLine("Lock Broke The Chest has Become Useless");
-                    System.Threading.Thread.Sleep(1250);
-                    break;
+
+
+
+                switch (random.Next(1, 125 - Player.playerInfo.lockPicking))
+                {
+                    case int i when i <= 30:
+                        int MoneyFound = random.Next(30, 200 + Player.playerInfo.luck);
+                        Player.playerInfo.money += MoneyFound;
+                        Console.WriteLine($"You Opened The Chest And Found ${MoneyFound}");
+                        break;
+
+                    default:
+                        Console.WriteLine("Lock Broke The Chest has Become Useless");
+                        System.Threading.Thread.Sleep(1250);
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("You opend The Chest");
+                Weapon newWeapon = new Weapon();
+                Console.WriteLine($"You Found A {newWeapon.name}\n You Added It To Your Inventory");
+                Player.playerInfo.weaponInventory.Add(newWeapon);
             }
            // Player.playerInfo.luck 
 

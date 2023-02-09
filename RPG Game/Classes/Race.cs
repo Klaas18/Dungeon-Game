@@ -53,6 +53,10 @@ namespace RPG_Game
             Player.playerInfo.race1 = raceEnum;
             Player.playerInfo.klassen1 = klassenEnum;
             Player.playerInfo.playerWeapon = new Weapon();
+            Player.playerInfo.weaponInventory = new List<Weapon>();
+            Player.playerInfo.weaponInventory.Add(new Weapon());
+            Player.playerInfo.weaponInventory.Add(new Weapon());
+            Player.playerInfo.weaponInventory.Add(new Weapon());
             Player.playerInfo.potionInventory = new List<Poition>();
             Player.playerInfo.xpNeeded += 25;
             for (int i = 0; i < 4; i++)

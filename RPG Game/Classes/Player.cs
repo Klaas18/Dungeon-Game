@@ -41,7 +41,7 @@ namespace RPG_Game
                 string playerName = Console.ReadLine();
                 playerInfo.name = playerName;
                 SaveGame();
-                Welcome();         
+                Welcome();
             }
         }
 
@@ -55,9 +55,9 @@ namespace RPG_Game
         }
         public int AttackDamage()
         {
-           float damage = playerInfo.playerWeapon.damage * playerInfo.strenght / 1.5f;
+            float damage = playerInfo.playerWeapon.damage * playerInfo.strenght / 1.5f;
             return (Int32)damage;
-            
+
         }
 
         public int MageAttack()
@@ -65,11 +65,11 @@ namespace RPG_Game
             float mageDamage = playerInfo.playerWeapon.damage * playerInfo.mageDamge / 3;
             return (Int32)mageDamage;
         }
-   
+
         public void TakeDamge(int damgeTaken)
         {
-           // damgeTaken 
-           playerInfo.health -= damgeTaken; 
+            // damgeTaken 
+            playerInfo.health -= damgeTaken;
         }
         public void ShowStats()
         {
@@ -87,7 +87,7 @@ namespace RPG_Game
             try
             {
                 if (playerInfo.potionInventory != null)
-                {                   
+                {
                     playerInfo.potionInventory.RemoveAt(playerInfo.potionInventory.Count - 1);
                     if (playerInfo.klassen1 == klassen.Mage)
                     {
@@ -101,50 +101,50 @@ namespace RPG_Game
                 else { Console.WriteLine("No Potions Left"); }
             }
             catch { Console.WriteLine("No Potions Left"); }
-            
+
         }
         public void GiveXP(int enemyXp)
         {
             playerInfo.currentXP += enemyXp;
-          if(playerInfo.currentXP >= playerInfo.xpNeeded)
+            if (playerInfo.currentXP >= playerInfo.xpNeeded)
             {
                 playerInfo.level += 1;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You Leveled Up");
                 Console.ResetColor();
                 LevelUpStats();
-                playerInfo.xpNeeded *= 5 /2;
+                playerInfo.xpNeeded *= 5 / 2;
                 playerInfo.currentXP = 0;
             }
-            
+
 
         }
         public void Shop()
         {
             Console.Clear();
-          
-                Console.WriteLine("What Do You Wan't To Do?\n[B]uy Potions - [G]o Back");
-                switch (Console.ReadKey().Key)
-                {
-                    case ConsoleKey.B:
-                        if (playerInfo.money >= 60)
-                        {
-                            playerInfo.potionInventory.Add(new Poition());
-                            playerInfo.money -= 60;
-                        }
-                        else { Console.WriteLine("You Dont Have Enough Money");  System.Threading.Thread.Sleep(1500); }
-                        return;
-                    case ConsoleKey.G:
-                        Program.isInShop = false;
-                        return;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("Invalid Input");
+
+            Console.WriteLine("What Do You Wan't To Do?\n[B]uy Potions - [G]o Back");
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.B:
+                    if (playerInfo.money >= 60)
+                    {
+                        playerInfo.potionInventory.Add(new Poition());
+                        playerInfo.money -= 60;
+                    }
+                    else { Console.WriteLine("You Dont Have Enough Money"); System.Threading.Thread.Sleep(1500); }
+                    return;
+                case ConsoleKey.G:
+                    Program.isInShop = false;
+                    return;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid Input");
                     System.Threading.Thread.Sleep(1500);
                     Shop();
-                        return;
-                }
-            
+                    return;
+            }
+
         }
         public void Welcome()
         {
@@ -156,7 +156,7 @@ namespace RPG_Game
 
         public void SaveGame()
         {
-        
+
             if (File.Exists(filePath))
             {
                 string jsonText = JsonConvert.SerializeObject(playerInfo); //Writes the class in json format to a string
@@ -167,27 +167,27 @@ namespace RPG_Game
                 Console.WriteLine("Creating Save File...");
                 using (StreamWriter writer = new StreamWriter(File.Create(filePath)))
                 {
-                   
+
                     //File.Create(filePath);
                     //System.Threading.Thread.Sleep(50);
                     writer.Close();
                 }
-                    string jsonText = JsonConvert.SerializeObject(playerInfo); //Writes the class in json format to a string
-                    File.WriteAllText(filePath, jsonText); // Opens the json file and writes the string with the class data to it
+                string jsonText = JsonConvert.SerializeObject(playerInfo); //Writes the class in json format to a string
+                File.WriteAllText(filePath, jsonText); // Opens the json file and writes the string with the class data to it
             }
         }
 
         public void LoadGame()
-        {  
-                if (File.Exists(filePath))
-                {
-                    playerInfo = JsonConvert.DeserializeObject<PlayerStats>(File.ReadAllText(filePath)); // Reads all the data out of json file and saves it 
-                }
-                else
-                {
-                    Console.WriteLine("No Game File To Load");
-                }
-        } 
+        {
+            if (File.Exists(filePath))
+            {
+                playerInfo = JsonConvert.DeserializeObject<PlayerStats>(File.ReadAllText(filePath)); // Reads all the data out of json file and saves it 
+            }
+            else
+            {
+                Console.WriteLine("No Game File To Load");
+            }
+        }
 
         public void LevelUpStats()
         {
@@ -199,9 +199,59 @@ namespace RPG_Game
             playerInfo.defense += random.Next(2, 6);
             playerInfo.stealth += random.Next(2, 6);
             playerInfo.mageDamge += random.Next(2, 6);
-          
+        }
+        public void ShowWeapons()
+        {
+            Console.Clear();
+            if (playerInfo.weaponInventory != null)
+            {
+                int index = 0;
+                foreach (Weapon w in playerInfo.weaponInventory)
+                {
+                    Frame($"[{index}] - Weapon: {w.name} Damge: {w.damage}");
+                    index++;
+                }
+
+                Console.WriteLine("[S]et New Weapon - [C]lose");
+                switch(Console.ReadKey().Key)
+                {
+                    case ConsoleKey.S:
+                        SetWeapon();
+                        break;
+                    case ConsoleKey.C:
+                        Console.WriteLine("Bye Bye");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input");
+                        ShowWeapons();
+                        break;
+                }
+            }
+            else
+            { 
+                Console.WriteLine("No Weapons To Show");
+                System.Threading.Thread.Sleep(1250);
+            }
+        
+        }
+
+        public void SetWeapon()
+        {
+            Console.WriteLine("Please Give a Number out of Your Inventory");
+            int i = Int32.Parse(Console.ReadLine());
+            playerInfo.weaponInventory.Add(playerInfo.playerWeapon);
+            playerInfo.playerWeapon = GetWeapon(i);
+            playerInfo.weaponInventory.RemoveAt(i);
+            Console.WriteLine($"New Weapon Is {playerInfo.playerWeapon.name}");
+            System.Threading.Thread.Sleep(1250);
+        }
+
+        public Weapon GetWeapon(int index)
+        {
+            return playerInfo.weaponInventory[index];
         }
     }
+
 
     public class PlayerStats
     { 
@@ -219,6 +269,7 @@ namespace RPG_Game
         public int stealth { get; set; }
         public int mageDamge { get; set; }
         public bool canUseMagic { get; set; }
+        public List<Weapon> weaponInventory { get; set; }
         public List<Poition> potionInventory { get; set; }
         public race race1 { get; set; }
         public klassen klassen1 {get; set;}

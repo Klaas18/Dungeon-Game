@@ -23,7 +23,7 @@ namespace RPG_Game
             Console.Clear();
             StartMessage();
             Player.getInstance().ShowStats();
-            Console.WriteLine("[E]nter a Dongeon Room - [Q]uit Game - [S]hop - Save [G]ame - [D]elete Save File"); //- [I]nventory
+            Console.WriteLine("[E]nter a Dongeon Room - [I]nventory - [S]hop - [Q]uit Game - Save [G]ame - [D]elete Save File"); //
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.E:
@@ -47,6 +47,9 @@ namespace RPG_Game
 
                 case ConsoleKey.G:
                     Player.getInstance().SaveGame();
+                    break;
+                case ConsoleKey.I:
+                    Player.getInstance().ShowWeapons();
                     break;
                 default:
                     Console.WriteLine("Invalid Input");
